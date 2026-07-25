@@ -1,0 +1,32 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="404 - Page Not Found | Easy Todo List"
+  description="The page you're looking for doesn't exist."
+>
+  <div class="pt-20 sm:pt-32 px-4">
+    <div class="text-center max-w-lg mx-auto">
+      <div class="text-[120px] sm:text-[150px] font-bold text-link leading-none mb-2">404</div>
+      <h1 class="text-display-md font-semibold text-ink mb-4">Page Not Found</h1>
+      <p class="text-body-lg text-mute mb-8 max-w-sm mx-auto">
+        Sorry, the page you're looking for doesn't exist or has been moved.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a
+          href="/app"
+          class="px-6 py-3 bg-link text-white rounded-lg font-medium hover:bg-link-hover transition-colors"
+        >
+          Open App
+        </a>
+        <a
+          href="/"
+          class="px-6 py-3 bg-canvas-elevated border border-hairline text-ink rounded-lg font-medium hover:bg-canvas-soft transition-colors"
+        >
+          Go Home
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,32 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="500 - Server Error | Easy Todo List"
+  description="Something went wrong on our end."
+>
+  <div class="min-h-[80vh] flex items-center justify-center px-4">
+    <div class="text-center max-w-lg">
+      <div class="text-[120px] sm:text-[150px] font-bold text-error leading-none mb-2">500</div>
+      <h1 class="text-display-md font-semibold text-ink mb-4">Server Error</h1>
+      <p class="text-body-lg text-mute mb-8 max-w-sm mx-auto">
+        Something went wrong on our end. We're working to fix it.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <button
+          onclick="window.location.reload()"
+          class="px-6 py-3 bg-canvas-elevated border border-hairline text-ink rounded-lg font-medium hover:bg-canvas-soft transition-colors"
+        >
+          Try Again
+        </button>
+        <a
+          href="/"
+          class="px-6 py-3 bg-link text-white rounded-lg font-medium hover:bg-link-hover transition-colors"
+        >
+          Go Home
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,193 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  headerButtonText?: string;
+  headerButtonHref?: string;
+  canonicalUrl?: string;
+  ogImage?: string;
+}
+
+const {
+  title = "Todo List - Easy Todo List | Free Online Todo List App",
+  description = "Create a todo list online in seconds. Easy Todo List is the best free todo list website with templates. No signup needed. Organize daily tasks, categorize & track progress.",
+  headerButtonText = "Templates",
+  headerButtonHref = "/templates",
+  canonicalUrl = "https://easytodolist.com",
+  ogImage = "/og-image.png"
+} = Astro.props;
+
+const siteName = "Easy Todo List";
+const twitterHandle = "@easytodolist";
+---
+
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <!-- Primary SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Easy Todo List" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content={twitterHandle} />
+    <meta name="twitter:creator" content={twitterHandle} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Keywords for SEO -->
+    <meta name="keywords" content="todo list, todo list website, todo list app, best todo list app, google todo list, todo list template, online todo list, how to make a todo list online, simple todo list, daily todo list, todo list templates, task manager, task list, checklist, free todo list" />
+
+    <!-- Theme & Color -->
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Dark mode initialization - runs before render to prevent flash -->
+    <script is:inline>
+      (function() {
+        const stored = localStorage.getItem('dark-mode');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const isDark = stored !== null ? stored === 'true' : prefersDark;
+        if (isDark) {
+          document.documentElement.classList.add('dark');
+        }
+
+        // Update toggle icons based on dark mode
+        function updateToggleIcons(isDark) {
+          const moonIcon = document.getElementById('moon-icon');
+          const sunIcon = document.getElementById('sun-icon');
+          if (moonIcon && sunIcon) {
+            if (isDark) {
+              moonIcon.classList.add('hidden');
+              sunIcon.classList.remove('hidden');
+            } else {
+              moonIcon.classList.remove('hidden');
+              sunIcon.classList.add('hidden');
+            }
+          }
+        }
+
+        // Listen for dark mode changes and update icons
+        const observer = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.attributeName === 'class') {
+              const isDark = document.documentElement.classList.contains('dark');
+              updateToggleIcons(isDark);
+            }
+          });
+        });
+        observer.observe(document.documentElement, { attributes: true });
+
+        // Initial icon state
+        updateToggleIcons(isDark);
+      })();
+    </script>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="easylist" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V4D99E44YB"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-V4D99E44YB');
+    </script>
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-canvas dark:bg-[#0f0f0f] border-b border-hairline safe-area-top">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+        <!-- Logo -->
+        <a href="/" class="flex items-center gap-2">
+          <img src="/favicon.svg" alt="Easy Todo List" class="w-6 h-6" />
+          <span class="font-medium text-sm text-ink">Easy Todo List</span>
+        </a>
+
+        <!-- Nav -->
+        <div class="flex items-center gap-1 sm:gap-2">
+          <button
+            id="dark-mode-toggle"
+            class="inline-flex items-center justify-center h-9 w-9 text-ink bg-canvas-soft dark:bg-[#1a1a1a] rounded-lg hover:bg-canvas-soft-2 dark:hover:bg-[#252525] transition-all border border-hairline"
+            aria-label="Toggle dark mode"
+            onclick="const isDark = document.documentElement.classList.toggle('dark'); document.documentElement.classList.add('theme-transition'); localStorage.setItem('dark-mode', isDark ? 'true' : 'false'); updateToggleIcons(isDark); setTimeout(function() { document.documentElement.classList.remove('theme-transition'); }, 200);"
+          >
+            <!-- Moon icon (shown in light mode) -->
+            <svg class="w-[18px] h-[18px] [&_path]:!stroke-[1.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="moon-icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+            <!-- Sun icon (shown in dark mode) -->
+            <svg class="w-[18px] h-[18px] hidden [&_path]:!stroke-[1.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="sun-icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+          </button>
+          <a href={headerButtonHref} class="inline-flex items-center justify-center h-9 px-3 sm:px-4 text-xs sm:text-sm font-medium text-ink bg-canvas-soft dark:bg-[#1a1a1a] border border-hairline rounded-lg hover:bg-canvas-soft-2 dark:hover:bg-[#252525] transition-colors">
+            {headerButtonText}
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-1">
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-canvas dark:bg-[#0f0f0f] border-t border-hairline mt-auto safe-area-bottom">
+      <div class="max-w-4xl mx-auto px-6 py-8">
+        <!-- Main navigation links -->
+        <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-center mb-4">
+          <a href="/about" class="text-sm text-body hover:text-ink transition-colors">About</a>
+          <span class="text-hairline hidden sm:inline">·</span>
+          <a href="/contact" class="text-sm text-body hover:text-ink transition-colors">Contact</a>
+          <span class="text-hairline hidden sm:inline">·</span>
+          <a href="/privacy" class="text-sm text-body hover:text-ink transition-colors">Privacy</a>
+          <span class="text-hairline hidden sm:inline">·</span>
+          <a href="/terms" class="text-sm text-body hover:text-ink transition-colors">Terms</a>
+        </div>
+        <!-- Copyright and brand -->
+        <div class="flex items-center justify-center gap-2 text-center">
+          <a href="/" class="inline-flex items-center gap-1.5 text-sm text-mute hover:text-ink transition-colors">
+            <img src="/favicon.svg" alt="Easy Todo List" class="w-4 h-4" />
+            Easy Todo List
+          </a>
+          <span class="text-caption text-mute">·</span>
+          <span class="text-caption text-mute">Free forever</span>
+        </div>
+      </div>
+    </footer>
+
+  </body>
+</html>

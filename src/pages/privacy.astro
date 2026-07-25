@@ -1,0 +1,99 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Privacy Policy | Easy Todo List"
+  description="Read the Easy Todo List privacy policy. Learn how we handle your data, what information we collect, and your rights regarding your personal information."
+  canonicalUrl="https://easytodolist.com/privacy"
+>
+  <div class="bg-canvas-soft py-12 sm:py-16 lg:py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <!-- Header -->
+      <div class="mb-10">
+        <p class="text-caption text-mute uppercase tracking-wider mb-2">Legal</p>
+        <h1 class="text-2xl sm:text-3xl text-ink font-semibold mb-4">Privacy Policy</h1>
+        <p class="text-body-sm text-mute">Last updated: July 21, 2026</p>
+      </div>
+
+      <!-- Content -->
+      <div class="prose prose-lg max-w-none text-body space-y-4">
+        <p>
+          At Easy Todo List ("we," "our," or "us"), we believe in simplicity—even when it comes to privacy. This policy explains how we handle your information when you use our website and services.
+        </p>
+
+        <h2 class="text-xl text-ink font-semibold mt-8 mb-4">Information We Collect</h2>
+        <p>
+          <strong>No Personal Data Storage:</strong> Easy Todo List operates entirely within your browser. We do not collect, store, or process any personal information on our servers. All your todo lists, tasks, and preferences are stored locally in your browser's localStorage.
+        </p>
+        <p>
+          <strong>Browser Storage:</strong> When you use our service, your data (including list names, tasks, and categories) is stored in your browser's local storage. This data remains on your device and is not transmitted to our servers.
+        </p>
+        <p>
+          <strong>Usage Information:</strong> We may collect basic, anonymous usage statistics such as pages visited and features used to improve our service. This data cannot be used to identify you personally.
+        </p>
+
+        <h2 class="text-xl text-ink font-semibold mt-8 mb-4">Cookies</h2>
+        <p>
+          We use minimal cookies to enhance your experience:
+        </p>
+        <ul class="space-y-2 ml-4" style="list-style-type: disc; margin-left: 1rem;">
+          <li><strong>Dark Mode Preference:</strong> We store your dark mode preference in localStorage to remember your display settings.</li>
+          <li><strong>No Tracking Cookies:</strong> We do not use tracking cookies, advertising cookies, or third-party analytics cookies.</li>
+        </ul>
+
+        <h2 class="text-xl text-ink font-semibold mt-8 mb-4">Third-Party Services</h2>
+        <p>
+          <strong>Fonts:</strong> We use Google Fonts to load our typeface. This may involve Google receiving basic information about your browser.
+        </p>
+        <p>
+          <strong>Share Feature:</strong> When you share a todo list, the list data is encoded into the share URL. We do not store this data on any server—it exists only in the URL you share with others.
+        </p>
+
+        <h2 class="text-xl text-ink font-semibold mt-8 mb-4">Data Security</h2>
+        <p>
+          Your data is stored locally on your device and protected by your browser's security measures. Since we do not store your data on our servers, there is no risk of our servers being compromised.
+        </p>
+        <p>
+          However, we recommend regularly backing up important lists and not sharing sensitive information through the share feature, as the URL may be stored in browser history and server logs.
+        </p>
+
+        <h2 class="text-xl text-ink font-semibold mt-8 mb-4">Your Rights</h2>
+        <p>
+          Because we do not collect personal data, there is generally no data for us to provide, correct, or delete. You maintain complete control over your data:
+        </p>
+        <ul class="space-y-2 ml-4" style="list-style-type: disc; margin-left: 1rem;">
+          <li><strong>Access:</strong> You can view all your data by opening our website in your browser.</li>
+          <li><strong>Delete:</strong> You can clear your browser's localStorage to remove all stored data.</li>
+          <li><strong>Portability:</strong> You can export your lists by copying the content manually.</li>
+        </ul>
+
+        <h2 class="text-xl text-ink font-semibold mt-8 mb-4">Children's Privacy</h2>
+        <p>
+          Our service is not directed to children under 13 years of age. We do not knowingly collect information from children. If you believe a child has provided us with personal information, please contact us and we will delete it.
+        </p>
+
+        <h2 class="text-xl text-ink font-semibold mt-8 mb-4">Changes to This Policy</h2>
+        <p>
+          We may update this privacy policy from time to time. Any changes will be posted on this page with an updated "Last updated" date. We encourage you to review this policy periodically.
+        </p>
+
+        <h2 class="text-xl text-ink font-semibold mt-8 mb-4">Contact Us</h2>
+        <p>
+          If you have any questions about this privacy policy or our practices, please contact us at <a href="/contact" class="text-link hover:border-b border-link">our contact page</a>. We are committed to protecting your privacy and will respond as soon as possible.
+        </p>
+      </div>
+
+      <!-- CTA -->
+      <div class="mt-12 pt-8 border-t border-hairline text-center">
+        <p class="text-body mb-4">Ready to start organizing your tasks?</p>
+        <a
+          href="/app"
+          class="inline-flex items-center justify-center h-10 px-6 text-button-md font-[500] text-on-primary bg-primary rounded-full hover:opacity-90 transition-opacity"
+        >
+          Create a List →
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>

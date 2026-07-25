@@ -1,0 +1,53 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const { status = 500, message = "Something went wrong" } = Astro.props;
+
+const errorConfig = {
+  400: { title: "Bad Request", description: "The request couldn't be understood." },
+  401: { title: "Unauthorized", description: "Please log in to access this page." },
+  403: { title: "Forbidden", description: "You don't have permission to view this page." },
+  404: { title: "Page Not Found", description: "The page you're looking for doesn't exist." },
+  408: { title: "Request Timeout", description: "The request took too long to complete." },
+  429: { title: "Too Many Requests", description: "Please wait a moment before trying again." },
+  500: { title: "Server Error", description: "Something went wrong on our end. We're working to fix it." },
+  502: { title: "Bad Gateway", description: "The server received an invalid response." },
+  503: { title: "Service Unavailable", description: "We're temporarily unavailable. Please try again later." },
+};
+
+const config = errorConfig[status as keyof typeof errorConfig] || {
+  title: `${status} Error`,
+  description: message || "An unexpected error occurred."
+};
+---
+
+<Layout
+  title={`${status} - ${config.title} | Easy Todo List`}
+  description={config.description}
+>
+  <div class="min-h-[80vh] flex items-center justify-center px-4">
+    <div class="text-center max-w-lg">
+      <div class="text-[120px] sm:text-[150px] font-bold text-link leading-none mb-2">{status}</div>
+      <h1 class="text-display-md font-semibold text-ink mb-4">{config.title}</h1>
+      <p class="text-body-lg text-mute mb-8 max-w-sm mx-auto">
+        {config.description}
+      </p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        {status >= 500 && (
+          <button
+            onclick="window.location.reload()"
+            class="px-6 py-3 bg-canvas-elevated border border-hairline text-ink rounded-lg font-medium hover:bg-canvas-soft transition-colors"
+          >
+            Try Again
+          </button>
+        )}
+        <a
+          href="/"
+          class="px-6 py-3 bg-link text-white rounded-lg font-medium hover:bg-link-hover transition-colors"
+        >
+          Go Home
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>

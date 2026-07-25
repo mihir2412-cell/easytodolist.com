@@ -1,0 +1,13 @@
+# Cloudflare Pages Deployment Configuration
+# Run: npx wrangler pages project create
+# Then: npm run pages:deploy
+
+name = "easytodolist"
+compatibility_date = "2025-07-24"
+
+# KV Namespace for shared lists (optional - for server-based short URLs)
+# Run: wrangler kv:namespace create "SHARE_KV"
+# Update the id below with your namespace ID
+# [[kv_namespaces]]
+# binding = "SHARE_KV"
+# id = "YOUR_NAMESPACE_ID_HERE"

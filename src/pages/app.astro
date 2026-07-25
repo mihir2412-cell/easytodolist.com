@@ -1,0 +1,13 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TodoApp from '../components/TodoApp';
+---
+
+<Layout
+  title="Create Your Todo List Online - Free Task Manager | Easy Todo List"
+  description="Create a todo list online instantly. Easy Todo List is a free task manager app to organize daily tasks, categorize items, and track progress. No signup needed."
+>
+  <div class="bg-canvas-soft dark:bg-[#141414] min-h-[calc(100vh-64px)]">
+    <TodoApp client:load />
+  </div>
+</Layout>

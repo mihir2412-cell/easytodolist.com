@@ -1,0 +1,178 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const templates = [
+  {
+    id: 'daily-routine',
+    name: 'Daily Routine',
+    description: 'Perfect for tracking your everyday tasks',
+    icon: '🌅',
+    color: '#0070f3',
+    todos: [
+      { text: 'Morning meditation', category: 'health' },
+      { text: 'Review daily goals', category: 'work' },
+      { text: 'Exercise for 30 minutes', category: 'health' },
+      { text: 'Read for 20 minutes', category: 'learning' },
+      { text: 'Prepare tomorrow\'s schedule', category: 'work' },
+    ],
+  },
+  {
+    id: 'project-launch',
+    name: 'Project Launch',
+    description: 'Track your project milestones',
+    icon: '🚀',
+    color: '#7928ca',
+    todos: [
+      { text: 'Define project scope', category: 'work' },
+      { text: 'Create initial wireframes', category: 'work' },
+      { text: 'Set up repository', category: 'work' },
+      { text: 'Write technical documentation', category: 'learning' },
+      { text: 'Beta testing with users', category: 'work' },
+    ],
+  },
+  {
+    id: 'weekend-groceries',
+    name: 'Weekend Groceries',
+    description: 'Your weekly shopping list',
+    icon: '🛒',
+    color: '#f5a623',
+    todos: [
+      { text: 'Fresh vegetables', category: 'shopping' },
+      { text: 'Fruits and nuts', category: 'shopping' },
+      { text: 'Dairy products', category: 'shopping' },
+      { text: 'Protein sources', category: 'shopping' },
+      { text: 'Pantry staples', category: 'shopping' },
+    ],
+  },
+  {
+    id: 'fitness-goals',
+    name: 'Fitness Goals',
+    description: 'Track your fitness journey',
+    icon: '💪',
+    color: '#007f5f',
+    todos: [
+      { text: 'Cardio workout', category: 'health' },
+      { text: 'Strength training', category: 'health' },
+      { text: 'Flexibility exercises', category: 'health' },
+      { text: 'Track calories', category: 'health' },
+      { text: '8 hours of sleep', category: 'health' },
+    ],
+  },
+  {
+    id: 'learning-path',
+    name: 'Learning Path',
+    description: 'Track your skill development',
+    icon: '📚',
+    color: '#ff0080',
+    todos: [
+      { text: 'Complete course module', category: 'learning' },
+      { text: 'Practice coding', category: 'learning' },
+      { text: 'Review notes', category: 'learning' },
+      { text: 'Build a small project', category: 'learning' },
+      { text: 'Share learnings', category: 'learning' },
+    ],
+  },
+  {
+    id: 'meeting-prep',
+    name: 'Meeting Prep',
+    description: 'Prepare for productive meetings',
+    icon: '📋',
+    color: '#50e3c2',
+    todos: [
+      { text: 'Review agenda', category: 'work' },
+      { text: 'Prepare discussion points', category: 'work' },
+      { text: 'Gather relevant documents', category: 'work' },
+      { text: 'Set time limits', category: 'work' },
+      { text: 'Send reminders', category: 'work' },
+    ],
+  },
+];
+---
+
+<Layout
+  title="Todo List Templates - Free Ready-Made Task List Templates | Easy Todo List"
+  description="Browse free todo list templates for daily routines, projects, fitness, and more. Jumpstart your productivity with ready-made task list templates. No signup required."
+  canonicalUrl="https://easytodolist.com/templates"
+>
+  <div class="bg-canvas-soft py-16 lg:py-24">
+    <div class="max-w-container-2xl mx-auto px-4 lg:px-6">
+      {/* Header */}
+      <div class="text-center mb-12">
+        <h1 class="text-display-lg text-ink mb-4">
+          Start with a Template
+        </h1>
+        <p class="text-body-lg text-body max-w-xl mx-auto">
+          Jumpstart your productivity with pre-made templates. Click any template to start a new list with sample tasks.
+        </p>
+      </div>
+
+      {/* Templates Grid */}
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {templates.map((template) => (
+          <article class="group bg-canvas rounded-lg border border-hairline hover:border-hairline-strong transition-all hover:shadow-lg overflow-hidden cursor-pointer"
+            onclick={`window.startWithTemplate('${template.id}')`}
+            role="button"
+            tabindex="0"
+            onkeydown={`if(event.key==='Enter')window.startWithTemplate('${template.id}')`}>
+            <div class="p-6">
+              <div class="flex items-start gap-4 mb-4">
+                <div class="w-12 h-12 rounded-lg flex items-center justify-center text-2xl"
+                  style={`background-color: ${template.color}15`}>
+                  {template.icon}
+                </div>
+                <div class="flex-1">
+                  <h3 class="text-display-sm text-ink mb-1">{template.name}</h3>
+                  <p class="text-body-sm text-mute">{template.description}</p>
+                </div>
+              </div>
+
+              {/* Preview tasks */}
+              <ul class="space-y-2 pl-2">
+                {template.todos.slice(0, 3).map((todo, i) => (
+                  <li class="flex items-center gap-2 text-body-sm text-body">
+                    <span class={`w-3 h-3 rounded-full border-2 flex-shrink-0`}
+                      style={`border-color: ${i === 0 ? template.color : 'var(--color-hairline)'}`} />
+                    <span class="truncate">{todo.text}</span>
+                  </li>
+                ))}
+                {template.todos.length > 3 && (
+                  <li class="text-caption text-mute pl-5">
+                    +{template.todos.length - 3} more tasks
+                  </li>
+                )}
+              </ul>
+            </div>
+
+            <div class="px-6 py-3 bg-canvas-soft border-t border-hairline flex items-center justify-between">
+              <span class="text-caption text-mute">{template.todos.length} tasks</span>
+              <span class="text-body-sm font-[500] text-link opacity-0 group-hover:opacity-100 transition-opacity">
+                Use Template →
+              </span>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      {/* CTA */}
+      <div class="text-center mt-12">
+        <p class="text-body text-mute mb-4">Or start from scratch</p>
+        <a
+          href="/app"
+          class="inline-flex items-center justify-center h-12 px-8 text-button-lg font-[500] text-on-primary bg-primary rounded-pill hover:opacity-90 transition-opacity"
+        >
+          Create Empty List
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script define:vars={{ templates }}>
+    window.startWithTemplate = function(templateId) {
+      const template = templates.find(t => t.id === templateId);
+      if (!template) return;
+
+      localStorage.setItem('new-list-from-template', JSON.stringify(template));
+      window.location.href = '/app';
+    };
+  </script>
+</Layout>

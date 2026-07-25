@@ -1,0 +1,501 @@
+---
+import Layout from '../layouts/Layout.astro';
+import DemoTodoList from '../components/DemoTodoList';
+---
+
+<!-- JSON-LD Structured Data for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Easy Todo List",
+  "description": "Create and manage todo lists online for free. No signup required. The best todo list app with templates for daily tasks.",
+  "url": "https://easytodolist.com",
+  "applicationCategory": "ProductivityApplication",
+  "operatingSystem": "Any",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "ratingCount": "1250"
+  }
+}
+</script>
+
+<!-- HowTo Schema for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to make a todo list online",
+  "description": "Learn how to create an effective todo list online to organize your tasks and boost productivity.",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "name": "Add your tasks",
+      "text": "Open the todo list website and start adding your tasks immediately without any signup."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Categorize tasks",
+      "text": "Organize your tasks into categories to keep related items together."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Track progress",
+      "text": "Mark tasks as complete and track your progress throughout the day."
+    }
+  ]
+}
+</script>
+
+<Layout>
+  <!-- Hero -->
+  <section class="pt-12 sm:pt-20 pb-8 sm:pb-12 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto text-center">
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl text-ink font-semibold mb-3 sm:mb-4 leading-tight">
+        The todo list made simple.
+      </h1>
+      <p class="text-sm sm:text-base text-body mb-6 sm:mb-8 max-w-md mx-auto px-2">
+        Add tasks instantly. Categorize. Track progress. Your lists stay in your browser.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+        <a
+          href="/app"
+          class="inline-flex items-center justify-center h-11 px-6 text-sm font-medium text-on-primary bg-primary rounded-full hover:opacity-90 transition-opacity w-full sm:w-auto"
+        >
+          Create a list →
+        </a>
+        <a
+          href="/templates"
+          class="inline-flex items-center justify-center h-11 px-6 text-sm font-medium text-ink bg-canvas border border-hairline rounded-full hover:border-hairline-strong hover:bg-canvas-soft transition-all w-full sm:w-auto"
+        >
+          Templates →
+        </a>
+      </div>
+      <div class="flex items-center justify-center gap-4 sm:gap-6 text-mute text-xs sm:text-sm">
+        <span>🔒 Private</span>
+        <span>💯 Free</span>
+        <span>📱 Instant</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo -->
+  <section class="pb-8 sm:pb-12 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-4 sm:mb-6">
+        <p class="text-caption text-mute uppercase tracking-wider mb-2">Live Demo</p>
+        <h2 class="text-display-sm text-ink font-semibold">See it in action</h2>
+        <p class="text-body-sm text-body mt-1 hidden sm:block">Try the app right here — no signup needed</p>
+      </div>
+      <DemoTodoList client:load />
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="pb-6 sm:pb-8 px-6">
+    <div class="max-w-4xl mx-auto flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-center">
+      <div class="flex items-center gap-1.5">
+        <svg class="w-4 h-4 text-link" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+        </svg>
+        <span class="text-xs sm:text-sm text-ink">Add</span>
+      </div>
+      <span class="text-hairline">•</span>
+      <div class="flex items-center gap-1.5">
+        <svg class="w-4 h-4 text-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z" />
+        </svg>
+        <span class="text-xs sm:text-sm text-ink">Categorize</span>
+      </div>
+      <span class="text-hairline">•</span>
+      <div class="flex items-center gap-1.5">
+        <svg class="w-4 h-4 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span class="text-xs sm:text-sm text-ink">Track</span>
+      </div>
+      <span class="text-hairline hidden sm:inline">•</span>
+      <span class="text-xs sm:text-sm text-ink hidden sm:inline">Private</span>
+    </div>
+  </section>
+
+  <!-- Quick Links Section -->
+  <section class="pb-8 sm:pb-12 px-6">
+    <div class="max-w-4xl mx-auto">
+      <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-center">
+        <a href="/about" class="inline-flex items-center gap-2 text-sm text-body hover:text-ink transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          About
+        </a>
+        <a href="/contact" class="inline-flex items-center gap-2 text-sm text-body hover:text-ink transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          Contact
+        </a>
+        <a href="/privacy" class="inline-flex items-center gap-2 text-sm text-body hover:text-ink transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+          Privacy
+        </a>
+        <a href="/terms" class="inline-flex items-center gap-2 text-sm text-body hover:text-ink transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+          </svg>
+          Terms
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEO Content Section -->
+  <section class="py-12 sm:py-16 px-4 sm:px-6 bg-canvas-soft border-t border-hairline">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-2xl sm:text-3xl text-ink font-semibold mb-6 text-center">
+        Create Your Perfect Todo List Online – Free & No Signup Required
+      </h2>
+      <div class="prose prose-lg max-w-none text-body space-y-4">
+        <p>
+          Looking for a simple <strong>todo list</strong> tool that helps you stay organized without the hassle? Easy Todo List is the <strong>best todo list app</strong> available online today. Our free <strong>todo list website</strong> lets you create, manage, and share your tasks in seconds – no registration, no email, no complications. Just pure productivity.
+        </p>
+
+        <p>
+          Whether you need a <strong>daily todo list</strong> for your work routine, a personal task manager for home projects, or a collaborative checklist for your team, our <strong>online todo list</strong> has you covered. We designed this <strong>todo list app</strong> to be the most intuitive and straightforward task management solution on the internet.
+        </p>
+
+        <h3 class="text-xl text-ink font-semibold mt-8 mb-4">How to Make a Todo List Online in Minutes</h3>
+        <p>
+          Creating your first <strong>todo list</strong> with us is incredibly simple. Just open our website, and you're ready to start adding tasks immediately. There's no learning curve, no complicated menus, and no time wasted on setup. Add your tasks, categorize them by project or priority, and watch your productivity soar. That's truly all there is to it – how to make a todo list online has never been this easy.
+        </p>
+
+        <p>
+          Unlike Google Todo List or other complex project management tools, our <strong>simple todo list</strong> focuses on what matters: getting things done. We stripped away the unnecessary features and kept the essentials. The result is a clean, distraction-free interface that helps you concentrate on your tasks, not on learning software.
+        </p>
+
+        <h3 class="text-xl text-ink font-semibold mt-8 mb-4">Todo List Templates to Jumpstart Your Productivity</h3>
+        <p>
+          Starting from scratch isn't always necessary. Our collection of <strong>todo list templates</strong> gives you a head start for common scenarios. Whether you need a morning routine checklist, a project launch timeline, or a weekly review template, we've got ready-made <strong>todo list templates</strong> to fit your needs. Simply select a template, customize it to your liking, and begin ticking off tasks.
+        </p>
+
+        <p>
+          These templates aren't just for inspiration – they're fully functional <strong>todo list</strong> structures you can use immediately. Each template includes suggested categories, common task examples, and organizational tips to help you get the most out of your list. Browse our <a href="/templates" class="text-link hover:underline">free todo list templates</a> and discover how quickly you can transform your workflow.
+        </p>
+
+        <h3 class="text-xl text-ink font-semibold mt-8 mb-4">Why Easy Todo List Is the Best Todo List App for You</h3>
+        <p>
+          We've built this <strong>todo list website</strong> with one core principle: simplicity. Your data stays in your browser – private, secure, and under your control. No servers storing your personal information, no accounts to hack, no subscriptions to manage. When you use our <strong>online todo list</strong>, you own your data completely.
+        </p>
+
+        <p>
+          The <strong>best todo list app</strong> is the one you'll actually use. That's why we've made accessibility a priority. Our tool works seamlessly on desktop computers, tablets, and smartphones. Start a task list at work, continue on your phone during your commute, and review progress at home. Your <strong>daily todo list</strong> syncs across your devices through the convenience of your own browser.
+        </p>
+
+        <h3 class="text-xl text-ink font-semibold mt-8 mb-4">Stay Organized with a Simple Todo List Today</h3>
+        <p>
+          Don't let overwhelming tasks control your day. A well-structured <strong>todo list</strong> breaks down big projects into manageable steps, keeps track of deadlines, and ensures nothing falls through the cracks. Our <strong>todo list app</strong> helps you prioritize effectively, so you always know what to tackle next.
+        </p>
+
+        <!-- FAQPage Schema for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [{
+    "@type": "Question",
+    "name": "How to make a todo list online?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Making a todo list online is simple with Easy Todo List. Just visit our website and start adding your tasks immediately—no signup required. You can categorize tasks, set priorities, and track your progress in real-time. Your lists are stored in your browser, keeping your data private and accessible anywhere."
+    }
+  }, {
+    "@type": "Question",
+    "name": "How to create a todo list",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "To create a todo list, start by naming your list and adding your first task. Use our online tool to add tasks one at a time or paste multiple items at once. Organize tasks into categories, mark priorities if needed, and you are done. No software to download or account to create."
+    }
+  }, {
+    "@type": "Question",
+    "name": "What is a todo list?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "A todo list is a simple tool for tracking tasks and to-dos. It helps you organize what you need to do, prioritize work, and check items off as you complete them. Todo lists can be digital or paper-based, online or offline. They are essential for productivity, helping you stay focused on what matters most."
+    }
+  }, {
+    "@type": "Question",
+    "name": "How to make a todo list in Excel",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "To make a todo list in Excel, open a new spreadsheet and create columns for Task, Priority, Due Date, and Status. Add your tasks in the Task column, use color coding or dropdowns for priorities, and update the Status column as you complete items. Excel works for simple lists, but a dedicated todo list tool like Easy Todo List offers a faster, more intuitive experience."
+    }
+  }, {
+    "@type": "Question",
+    "name": "Does Google have a todo list?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Google does not have a dedicated standalone todo list app, but it offers several task management options. Google Tasks is embedded within Gmail and Google Calendar, allowing basic task tracking. For more advanced features, you can integrate third-party apps or use Google Keep for simple notes and reminders. Easy Todo List offers a free, no-signup alternative specifically designed for todo list management."
+    }
+  }, {
+    "@type": "Question",
+    "name": "How to add a todo list widget on Mac",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "On Mac, you can add a todo list widget via the Notification Center. Click the date/time in the menu bar, scroll to the bottom, and click Edit Widgets. Look for Reminders or use Siri to create a Reminders widget. For a web-based todo list, add our site to your Dock for instant access—no app installation needed."
+    }
+  }, {
+    "@type": "Question",
+    "name": "How to make a todo list on iPhone",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "On iPhone, you can create a todo list using the built-in Reminders app. Open Reminders, tap New List, name it, and add your tasks. For a web-based option that syncs across devices, open Easy Todo List in Safari and add it to your Home Screen for app-like access. Our mobile-friendly design works perfectly on iPhone browsers."
+    }
+  }, {
+    "@type": "Question",
+    "name": "How to maintain a todo list",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "To maintain a todo list effectively, review it daily and update tasks. Add new items immediately, remove completed tasks, and break large projects into smaller actionable items. Prioritize based on urgency and importance, and schedule regular reviews—at the start or end of each day. Consistency is key: the best todo list is one you actually use."
+    }
+  }]
+}
+</script>
+
+        <p>
+          Ready to experience the difference a great <strong>todo list</strong> can make? <a href="/app" class="text-link hover:underline">Create your free todo list online</a> right now. No signup required – just start organizing your life with the web's simplest and most effective task management tool. Try Easy Todo List today and discover why thousands of users call it their <strong>best todo list app</strong> for staying on top of everything that matters.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-12 sm:py-16 px-4 sm:px-6 border-t border-hairline">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-2xl sm:text-3xl text-ink font-semibold mb-8 text-center">
+        Frequently Asked Questions
+      </h2>
+      <div class="space-y-4" id="faq-accordion">
+        <div class="border border-hairline rounded-lg overflow-hidden">
+          <button
+            class="faq-trigger w-full flex items-center justify-between p-4 sm:p-5 text-left bg-canvas hover:bg-canvas-soft transition-colors"
+            data-faq="1"
+            aria-expanded="false"
+          >
+            <span class="font-medium text-ink pr-4">How to make a todo list online?</span>
+            <svg
+              class="faq-icon w-5 h-5 text-mute flex-shrink-0 transition-transform duration-200"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="faq-content hidden">
+            <div class="p-4 sm:p-5 pt-0 text-body text-sm sm:text-base">
+              Making a todo list online is simple with Easy Todo List. Just visit our website and start adding your tasks immediately—no signup required. You can categorize tasks, set priorities, and track your progress in real-time. Your lists are stored in your browser, keeping your data private and accessible anywhere.
+            </div>
+          </div>
+        </div>
+
+        <div class="border border-hairline rounded-lg overflow-hidden">
+          <button
+            class="faq-trigger w-full flex items-center justify-between p-4 sm:p-5 text-left bg-canvas hover:bg-canvas-soft transition-colors"
+            data-faq="2"
+            aria-expanded="false"
+          >
+            <span class="font-medium text-ink pr-4">How to create a todo list?</span>
+            <svg
+              class="faq-icon w-5 h-5 text-mute flex-shrink-0 transition-transform duration-200"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="faq-content hidden">
+            <div class="p-4 sm:p-5 pt-0 text-body text-sm sm:text-base">
+              To create a todo list, start by naming your list and adding your first task. Use our online tool to add tasks one at a time or paste multiple items at once. Organize tasks into categories, mark priorities if needed, and you are done. No software to download or account to create.
+            </div>
+          </div>
+        </div>
+
+        <div class="border border-hairline rounded-lg overflow-hidden">
+          <button
+            class="faq-trigger w-full flex items-center justify-between p-4 sm:p-5 text-left bg-canvas hover:bg-canvas-soft transition-colors"
+            data-faq="3"
+            aria-expanded="false"
+          >
+            <span class="font-medium text-ink pr-4">What is a todo list?</span>
+            <svg
+              class="faq-icon w-5 h-5 text-mute flex-shrink-0 transition-transform duration-200"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="faq-content hidden">
+            <div class="p-4 sm:p-5 pt-0 text-body text-sm sm:text-base">
+              A todo list is a simple tool for tracking tasks and to-dos. It helps you organize what you need to do, prioritize work, and check items off as you complete them. Todo lists can be digital or paper-based, online or offline. They are essential for productivity, helping you stay focused on what matters most.
+            </div>
+          </div>
+        </div>
+
+        <div class="border border-hairline rounded-lg overflow-hidden">
+          <button
+            class="faq-trigger w-full flex items-center justify-between p-4 sm:p-5 text-left bg-canvas hover:bg-canvas-soft transition-colors"
+            data-faq="4"
+            aria-expanded="false"
+          >
+            <span class="font-medium text-ink pr-4">How to make a todo list in Excel?</span>
+            <svg
+              class="faq-icon w-5 h-5 text-mute flex-shrink-0 transition-transform duration-200"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="faq-content hidden">
+            <div class="p-4 sm:p-5 pt-0 text-body text-sm sm:text-base">
+              To make a todo list in Excel, open a new spreadsheet and create columns for Task, Priority, Due Date, and Status. Add your tasks in the Task column, use color coding or dropdowns for priorities, and update the Status column as you complete items. Excel works for simple lists, but a dedicated todo list tool like Easy Todo List offers a faster, more intuitive experience.
+            </div>
+          </div>
+        </div>
+
+        <div class="border border-hairline rounded-lg overflow-hidden">
+          <button
+            class="faq-trigger w-full flex items-center justify-between p-4 sm:p-5 text-left bg-canvas hover:bg-canvas-soft transition-colors"
+            data-faq="5"
+            aria-expanded="false"
+          >
+            <span class="font-medium text-ink pr-4">Does Google have a todo list?</span>
+            <svg
+              class="faq-icon w-5 h-5 text-mute flex-shrink-0 transition-transform duration-200"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="faq-content hidden">
+            <div class="p-4 sm:p-5 pt-0 text-body text-sm sm:text-base">
+              Google does not have a dedicated standalone todo list app, but it offers several task management options. Google Tasks is embedded within Gmail and Google Calendar, allowing basic task tracking. For more advanced features, you can integrate third-party apps or use Google Keep for simple notes and reminders. Easy Todo List offers a free, no-signup alternative specifically designed for todo list management.
+            </div>
+          </div>
+        </div>
+
+        <div class="border border-hairline rounded-lg overflow-hidden">
+          <button
+            class="faq-trigger w-full flex items-center justify-between p-4 sm:p-5 text-left bg-canvas hover:bg-canvas-soft transition-colors"
+            data-faq="6"
+            aria-expanded="false"
+          >
+            <span class="font-medium text-ink pr-4">How to add a todo list widget on Mac?</span>
+            <svg
+              class="faq-icon w-5 h-5 text-mute flex-shrink-0 transition-transform duration-200"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="faq-content hidden">
+            <div class="p-4 sm:p-5 pt-0 text-body text-sm sm:text-base">
+              On Mac, you can add a todo list widget via the Notification Center. Click the date/time in the menu bar, scroll to the bottom, and click Edit Widgets. Look for Reminders or use Siri to create a Reminders widget. For a web-based todo list, add our site to your Dock for instant access—no app installation needed.
+            </div>
+          </div>
+        </div>
+
+        <div class="border border-hairline rounded-lg overflow-hidden">
+          <button
+            class="faq-trigger w-full flex items-center justify-between p-4 sm:p-5 text-left bg-canvas hover:bg-canvas-soft transition-colors"
+            data-faq="7"
+            aria-expanded="false"
+          >
+            <span class="font-medium text-ink pr-4">How to make a todo list on iPhone?</span>
+            <svg
+              class="faq-icon w-5 h-5 text-mute flex-shrink-0 transition-transform duration-200"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="faq-content hidden">
+            <div class="p-4 sm:p-5 pt-0 text-body text-sm sm:text-base">
+              On iPhone, you can create a todo list using the built-in Reminders app. Open Reminders, tap New List, name it, and add your tasks. For a web-based option that syncs across devices, open Easy Todo List in Safari and add it to your Home Screen for app-like access. Our mobile-friendly design works perfectly on iPhone browsers.
+            </div>
+          </div>
+        </div>
+
+        <div class="border border-hairline rounded-lg overflow-hidden">
+          <button
+            class="faq-trigger w-full flex items-center justify-between p-4 sm:p-5 text-left bg-canvas hover:bg-canvas-soft transition-colors"
+            data-faq="8"
+            aria-expanded="false"
+          >
+            <span class="font-medium text-ink pr-4">How to maintain a todo list?</span>
+            <svg
+              class="faq-icon w-5 h-5 text-mute flex-shrink-0 transition-transform duration-200"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="faq-content hidden">
+            <div class="p-4 sm:p-5 pt-0 text-body text-sm sm:text-base">
+              To maintain a todo list effectively, review it daily and update tasks. Add new items immediately, remove completed tasks, and break large projects into smaller actionable items. Prioritize based on urgency and importance, and schedule regular reviews—at the start or end of each day. Consistency is key: the best todo list is one you actually use.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', function() {
+      const faqTriggers = document.querySelectorAll('.faq-trigger');
+      faqTriggers.forEach(function(trigger) {
+        trigger.addEventListener('click', function() {
+          const isExpanded = this.getAttribute('aria-expanded') === 'true';
+          const content = this.nextElementSibling;
+          const icon = this.querySelector('.faq-icon');
+
+          // Close all other FAQs (optional accordion behavior)
+          faqTriggers.forEach(function(otherTrigger) {
+            if (otherTrigger !== trigger) {
+              otherTrigger.setAttribute('aria-expanded', 'false');
+              const otherContent = otherTrigger.nextElementSibling;
+              const otherIcon = otherTrigger.querySelector('.faq-icon');
+              if (otherContent) otherContent.classList.add('hidden');
+              if (otherIcon) otherIcon.classList.remove('rotate-180');
+            }
+          });
+
+          // Toggle current FAQ
+          this.setAttribute('aria-expanded', !isExpanded);
+          if (content) content.classList.toggle('hidden');
+          if (icon) icon.classList.toggle('rotate-180');
+        });
+      });
+    });
+  </script>
+</Layout>

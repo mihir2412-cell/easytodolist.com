@@ -1,0 +1,107 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Contact Us | Easy Todo List"
+  description="Get in touch with the Easy Todo List team. We'd love to hear your feedback, questions, or suggestions for how we can improve our todo list app."
+  canonicalUrl="https://easytodolist.com/contact"
+>
+  <div class="bg-canvas-soft py-12 sm:py-16 lg:py-20">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6">
+      <!-- Header -->
+      <div class="text-center mb-12">
+        <h1 class="text-2xl sm:text-3xl text-ink font-semibold mb-4">Contact Us</h1>
+        <p class="text-body-lg text-body">
+          Have a question, suggestion, or just want to say hello? We'd love to hear from you.
+        </p>
+      </div>
+
+      <!-- Contact Info Cards -->
+      <div class="grid gap-6 mb-12">
+        <div class="bg-canvas rounded-lg border border-hairline p-6">
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 rounded-full bg-link-bg-soft flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-link" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div>
+              <h2 class="text-lg text-ink font-semibold mb-1">Email</h2>
+              <p class="text-body mb-2">The best way to reach us</p>
+              <a href="mailto:hello@easytodolist.com" class="text-link hover:border-b border-link">
+                hello@easytodolist.com
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-canvas rounded-lg border border-hairline p-6">
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 rounded-full bg-success/10 flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <h2 class="text-lg text-ink font-semibold mb-1">Response Time</h2>
+              <p class="text-body">We typically respond within 1-2 business days</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-canvas rounded-lg border border-hairline p-6">
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 rounded-full bg-violet-soft flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+            </div>
+            <div>
+              <h2 class="text-lg text-ink font-semibold mb-1">What We Love to Hear</h2>
+              <ul class="text-body space-y-1">
+                <li>• Feature suggestions and ideas</li>
+                <li>• Bug reports and issues</li>
+                <li>• General feedback</li>
+                <li>• User stories and use cases</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Email CTA -->
+      <div class="bg-canvas-soft-2 rounded-lg p-8 text-center border border-hairline">
+        <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+          <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+        </div>
+        <h2 class="text-xl text-ink font-semibold mb-2">Send Us an Email</h2>
+        <p class="text-body mb-6">
+          Click below to open your email client with our address pre-filled. Tell us what's on your mind!
+        </p>
+        <a
+          href="mailto:hello@easytodolist.com?subject=Easy%20Todo%20List%20Feedback"
+          class="inline-flex items-center justify-center h-12 px-8 text-button-lg font-[500] text-on-primary bg-primary rounded-full hover:opacity-90 transition-opacity"
+        >
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          Open Email Client
+        </a>
+      </div>
+
+      <!-- Back to app -->
+      <div class="mt-10 text-center">
+        <p class="text-mute mb-4">Or just start using the app</p>
+        <a
+          href="/app"
+          class="inline-flex items-center justify-center h-10 px-6 text-button-md font-[500] text-ink bg-canvas border border-hairline rounded-full hover:border-hairline-strong transition-all"
+        >
+          Go to App →
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>
