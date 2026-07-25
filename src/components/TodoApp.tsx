@@ -51,6 +51,8 @@ export default function TodoApp({ initialListId, sharedList, templateTodos, temp
   const [openCategoryMenuId, setOpenCategoryMenuId] = useState<string | null>(null);
   const categoryInputRef = useRef<HTMLInputElement>(null);
   const searchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const categoryModalRef = useRef<HTMLDivElement>(null);
+  const shortcutsModalRef = useRef<HTMLDivElement>(null);
 
   // ──────────────────────────────────────────────
   // Utility functions (needed before callbacks)
@@ -309,6 +311,73 @@ export default function TodoApp({ initialListId, sharedList, templateTodos, temp
     });
   }, []);
 
+  // Focus trap for category modal
+  useEffect(() => {
+    if (!showCategoryModal || !categoryModalRef.current) return;
+
+    const modal = categoryModalRef.current;
+    const focusableElements = modal.querySelectorAll<HTMLElement>(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+
+    // Focus first element on open
+    firstElement?.focus();
+
+    const handleTabKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return;
+
+      if (e.shiftKey) {
+        if (document.activeElement === firstElement) {
+          e.preventDefault();
+          lastElement?.focus();
+        }
+      } else {
+        if (document.activeElement === lastElement) {
+          e.preventDefault();
+          firstElement?.focus();
+        }
+      }
+    };
+
+    modal.addEventListener('keydown', handleTabKey);
+    return () => modal.removeEventListener('keydown', handleTabKey);
+  }, [showCategoryModal]);
+
+  // Focus trap for shortcuts modal
+  useEffect(() => {
+    if (!showShortcuts || !shortcutsModalRef.current) return;
+
+    const modal = shortcutsModalRef.current;
+    const focusableElements = modal.querySelectorAll<HTMLElement>(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+
+    firstElement?.focus();
+
+    const handleTabKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return;
+
+      if (e.shiftKey) {
+        if (document.activeElement === firstElement) {
+          e.preventDefault();
+          lastElement?.focus();
+        }
+      } else {
+        if (document.activeElement === lastElement) {
+          e.preventDefault();
+          firstElement?.focus();
+        }
+      }
+    };
+
+    modal.addEventListener('keydown', handleTabKey);
+    return () => modal.removeEventListener('keydown', handleTabKey);
+  }, [showShortcuts]);
+
   // Initialize on client side
   useEffect(() => {
     if (!initialListId && !localStorage.getItem('current-list-id')) {
@@ -487,7 +556,7 @@ export default function TodoApp({ initialListId, sharedList, templateTodos, temp
     setCategories(prev => prev.map(c =>
       c.id === id ? { ...c, name, color } : c
     ));
-    setEditingCategory(null);
+    setEditingCategoryId(null);
   }, []);
 
   // Delete category
@@ -575,6 +644,65 @@ export default function TodoApp({ initialListId, sharedList, templateTodos, temp
     setCopyNotification('markdown');
     setTimeout(() => setCopyNotification(null), 2000);
   }, [listName, todos, categories, completedTodos, totalTodos, progress]);
+
+  // Show loading skeleton while initializing
+  if (!isInitialized) {
+    return (
+      <div className="relative max-w-4xl mx-auto px-3 sm:px-4 py-6 sm:py-8">
+        <div className="animate-pulse">
+          {/* Header skeleton */}
+          <div className="flex items-center gap-4 mb-8">
+            <div className="w-10 h-10 rounded-lg bg-canvas-soft" />
+            <div className="flex-1 h-8 bg-canvas-soft rounded-md" />
+            <div className="flex gap-2">
+              <div className="w-10 h-10 rounded-full bg-canvas-soft" />
+              <div className="w-10 h-10 rounded-full bg-canvas-soft" />
+            </div>
+          </div>
+
+          {/* Progress skeleton */}
+          <div className="mb-6 p-4 bg-canvas-soft rounded-xl border border-hairline">
+            <div className="flex items-center justify-between mb-3">
+              <div className="h-4 w-20 bg-canvas-soft-2 rounded" />
+              <div className="h-4 w-10 bg-canvas-soft-2 rounded" />
+            </div>
+            <div className="h-2 bg-canvas-soft-2 rounded-full" />
+          </div>
+
+          {/* Add todo skeleton */}
+          <div className="mb-6 flex gap-2">
+            <div className="flex-1 h-9 bg-canvas-soft rounded-md" />
+            <div className="w-9 h-9 bg-canvas-soft rounded-md" />
+            <div className="w-9 h-9 bg-canvas-soft rounded-md" />
+          </div>
+
+          {/* Search skeleton */}
+          <div className="flex gap-4 mb-6">
+            <div className="flex-1 h-10 bg-canvas-soft rounded-md" />
+            <div className="w-28 h-10 bg-canvas-soft rounded-md" />
+          </div>
+
+          {/* Category pills skeleton */}
+          <div className="flex gap-2 mb-6">
+            <div className="h-7 w-16 bg-canvas-soft rounded-full" />
+            <div className="h-7 w-20 bg-canvas-soft rounded-full" />
+            <div className="h-7 w-18 bg-canvas-soft rounded-full" />
+          </div>
+
+          {/* Todo items skeleton */}
+          <div className="space-y-3">
+            {[1, 2, 3, 4].map(i => (
+              <div key={i} className="flex items-center gap-3 p-3 bg-canvas rounded-lg border border-hairline">
+                <div className="w-6 h-6 rounded-lg bg-canvas-soft" />
+                <div className="flex-1 h-4 bg-canvas-soft rounded" />
+                <div className="h-5 w-16 bg-canvas-soft rounded-full" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   // If viewing shared list
   if (sharedList) {
@@ -1279,8 +1407,14 @@ export default function TodoApp({ initialListId, sharedList, templateTodos, temp
       {showCategoryModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 animate-overlay-in bg-black/50" onClick={() => setShowCategoryModal(false)} />
-          <div className="relative w-full max-w-md bg-canvas rounded-lg border border-hairline shadow-xl p-6 animate-modal-in">
-            <h3 className="text-display-sm mb-4">Add Category</h3>
+          <div
+            ref={categoryModalRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="category-modal-title"
+            className="relative w-full max-w-md bg-canvas rounded-lg border border-hairline shadow-xl p-6 animate-modal-in"
+          >
+            <h3 id="category-modal-title" className="text-display-sm mb-4">Add Category</h3>
             <input
               type="text"
               value={newCategoryName}
@@ -1324,9 +1458,15 @@ export default function TodoApp({ initialListId, sharedList, templateTodos, temp
       {showShortcuts && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 animate-overlay-in" style={{ backgroundColor: 'var(--color-ink)', opacity: 0.5 }} onClick={() => setShowShortcuts(false)} />
-          <div className="relative w-full max-w-md bg-canvas rounded-lg border border-hairline shadow-xl p-6 animate-modal-in">
+          <div
+            ref={shortcutsModalRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="shortcuts-modal-title"
+            className="relative w-full max-w-md bg-canvas rounded-lg border border-hairline shadow-xl p-6 animate-modal-in"
+          >
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-display-sm text-ink">Keyboard Shortcuts</h3>
+              <h3 id="shortcuts-modal-title" className="text-display-sm text-ink">Keyboard Shortcuts</h3>
               <button
                 onClick={() => setShowShortcuts(false)}
                 className="p-1 text-mute hover:text-ink transition-colors"
