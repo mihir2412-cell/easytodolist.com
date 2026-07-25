@@ -834,6 +834,11 @@ a:active {
     min-width: 44px;
   }
 
+  /* Prevent iOS auto-zoom when focusing inputs (font-size < 16px triggers zoom) */
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+
   /* Remove tap highlight on mobile */
   button, a {
     -webkit-tap-highlight-color: transparent;
