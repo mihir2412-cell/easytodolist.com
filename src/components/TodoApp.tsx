@@ -932,7 +932,22 @@ export default function TodoApp({ initialListId, sharedList, templateTodos, temp
                 className={`h-9 w-9 flex items-center justify-center border rounded-md transition-colors
                   ${selectedDate ? 'bg-link-bg-soft border-link text-link' : 'bg-canvas-soft border-hairline text-mute hover:text-body'}`}
                 title="Set due date (for this task)"
-                onClick={() => {
+                onPointerDown={(e) => {
+                  // iOS Safari fix: prevent ghost click that causes double-open
+                  if (e.pointerType === 'touch') {
+                    e.preventDefault();
+                  }
+                }}
+                onClick={(e) => {
+                  // Skip if this was a touch event (handled by onTouchStart)
+                  if (e.pointerType === 'touch') return;
+                  const input = document.getElementById('add-task-date-input') as HTMLInputElement;
+                  if (input) {
+                    input.showPicker?.() || input.focus();
+                  }
+                }}
+                onTouchStart={(e) => {
+                  e.preventDefault();
                   const input = document.getElementById('add-task-date-input') as HTMLInputElement;
                   if (input) {
                     input.showPicker?.() || input.focus();
@@ -1301,7 +1316,17 @@ export default function TodoApp({ initialListId, sharedList, templateTodos, temp
                   <div className="relative">
                     <button
                       type="button"
-                      onClick={() => document.getElementById(`date-edit-${todo.id}`)?.showPicker()}
+                      onPointerDown={(e) => {
+                        if (e.pointerType === 'touch') e.preventDefault();
+                      }}
+                      onClick={(e) => {
+                        if (e.pointerType === 'touch') return;
+                        document.getElementById(`date-edit-${todo.id}`)?.showPicker();
+                      }}
+                      onTouchStart={(e) => {
+                        e.preventDefault();
+                        document.getElementById(`date-edit-${todo.id}`)?.showPicker();
+                      }}
                       className={`text-caption px-2 py-0.5 rounded-full transition-opacity touch-manipulation
                         ${status === 'overdue' ? 'bg-error-soft text-error-deep' : ''}
                         ${status === 'today' ? 'bg-warning-soft text-warning-deep' : ''}
@@ -1335,7 +1360,17 @@ export default function TodoApp({ initialListId, sharedList, templateTodos, temp
                 <div className="relative flex-shrink-0">
                   <button
                     type="button"
-                    onClick={() => document.getElementById(`date-edit-${todo.id}`)?.showPicker()}
+                    onPointerDown={(e) => {
+                      if (e.pointerType === 'touch') e.preventDefault();
+                    }}
+                    onClick={(e) => {
+                      if (e.pointerType === 'touch') return;
+                      document.getElementById(`date-edit-${todo.id}`)?.showPicker();
+                    }}
+                    onTouchStart={(e) => {
+                      e.preventDefault();
+                      document.getElementById(`date-edit-${todo.id}`)?.showPicker();
+                    }}
                     className="hidden sm:block text-caption px-2 py-0.5 rounded-full bg-canvas-soft text-mute hover:bg-link-bg-soft hover:text-link transition-all"
                     style={{ minHeight: '28px' }}
                   >
@@ -1351,7 +1386,17 @@ export default function TodoApp({ initialListId, sharedList, templateTodos, temp
                   />
                   <button
                     type="button"
-                    onClick={() => document.getElementById(`date-edit-mobile-${todo.id}`)?.showPicker()}
+                    onPointerDown={(e) => {
+                      if (e.pointerType === 'touch') e.preventDefault();
+                    }}
+                    onClick={(e) => {
+                      if (e.pointerType === 'touch') return;
+                      document.getElementById(`date-edit-mobile-${todo.id}`)?.showPicker();
+                    }}
+                    onTouchStart={(e) => {
+                      e.preventDefault();
+                      document.getElementById(`date-edit-mobile-${todo.id}`)?.showPicker();
+                    }}
                     className="sm:hidden text-caption px-2 py-0.5 rounded-full bg-canvas-soft text-mute hover:bg-link-bg-soft hover:text-link transition-all"
                     style={{ minHeight: '28px' }}
                   >
