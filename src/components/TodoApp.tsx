@@ -41,6 +41,7 @@ export default function TodoApp({ initialListId, sharedList, templateTodos, temp
   const [showShortcuts, setShowShortcuts] = useState(false);
   const [undoToast, setUndoToast] = useState<{ todo: Todo; timeout: ReturnType<typeof setTimeout> } | null>(null);
   const [copyNotification, setCopyNotification] = useState<'text' | 'markdown' | null>(null);
+  const [shareNotification, setShareNotification] = useState(false);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [draggedId, setDraggedId] = useState<string | null>(null);
   const [isInitialized, setIsInitialized] = useState(false);
@@ -49,6 +50,7 @@ export default function TodoApp({ initialListId, sharedList, templateTodos, temp
   const [editingCategoryName, setEditingCategoryName] = useState<string>('');
   const [editingCategoryNameBack, setEditingCategoryNameBack] = useState<string>('');
   const [openCategoryMenuId, setOpenCategoryMenuId] = useState<string | null>(null);
+  const [addTaskCategoryOpen, setAddTaskCategoryOpen] = useState(false);
   const categoryInputRef = useRef<HTMLInputElement>(null);
   const searchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const categoryModalRef = useRef<HTMLDivElement>(null);
@@ -601,6 +603,35 @@ export default function TodoApp({ initialListId, sharedList, templateTodos, temp
     setEditingCategoryId(null);
   }, [editingCategoryId, editingCategoryName, editingCategoryNameBack]);
 
+  // Share the website
+  const handleShare = useCallback(async () => {
+    const shareData = {
+      title: 'Easy Todo List',
+      text: 'Check out this awesome todo list app!',
+      url: window.location.href,
+    };
+
+    // Use Web Share API if available, otherwise copy URL to clipboard
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (err) {
+        // User cancelled or error - don't show notification for cancellation
+        if ((err as Error).name !== 'AbortError') {
+          // Fallback to clipboard
+          await navigator.clipboard.writeText(window.location.href);
+          setShareNotification(true);
+          setTimeout(() => setShareNotification(false), 2000);
+        }
+      }
+    } else {
+      // Fallback: copy URL to clipboard
+      await navigator.clipboard.writeText(window.location.href);
+      setShareNotification(true);
+      setTimeout(() => setShareNotification(false), 2000);
+    }
+  }, []);
+
   // Copy list as Markdown
   const copyAsMarkdown = useCallback(() => {
     const getCategoryName = (id: string) => categories.find(c => c.id === id)?.name || '';
@@ -812,9 +843,18 @@ export default function TodoApp({ initialListId, sharedList, templateTodos, temp
         {/* Action buttons */}
         <div className="flex items-center gap-2 flex-shrink-0">
           <button
+            onClick={handleShare}
+            className="w-10 h-10 inline-flex items-center justify-center rounded-full border border-hairline bg-canvas-soft hover:bg-canvas-soft-2 hover:border-link text-body transition-transform duration-150 ease-out hover:scale-110 active:scale-[0.97]"
+            title="Share"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+            </svg>
+          </button>
+          <button
             onClick={copyAsMarkdown}
             disabled={todos.length === 0}
-            className="w-10 h-10 inline-flex items-center justify-center rounded-full border border-hairline bg-canvas-soft hover:bg-canvas-soft-2 hover:border-link text-body transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:scale-110"
+            className="w-10 h-10 inline-flex items-center justify-center rounded-full border border-hairline bg-canvas-soft hover:bg-canvas-soft-2 hover:border-link text-body transition-transform duration-150 ease-out hover:scale-110 active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed"
             title="Copy as Markdown"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -828,7 +868,7 @@ export default function TodoApp({ initialListId, sharedList, templateTodos, temp
               }
             }}
             disabled={todos.length === 0}
-            className="w-10 h-10 inline-flex items-center justify-center rounded-full border border-hairline bg-canvas-soft hover:bg-error-soft text-body hover:text-error transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+            className="w-10 h-10 inline-flex items-center justify-center rounded-full border border-hairline bg-canvas-soft hover:bg-error-soft text-body hover:text-error transition-transform duration-150 ease-out hover:scale-110 active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed"
             title="Clear all tasks"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -842,6 +882,13 @@ export default function TodoApp({ initialListId, sharedList, templateTodos, temp
       {copyNotification && (
         <div role="status" aria-live="polite" className="fixed top-20 left-1/2 -translate-x-1/2 z-50 px-4 py-2 bg-success text-on-primary text-body-sm rounded-pill shadow-lg animate-fade-in">
           Copied as Markdown!
+        </div>
+      )}
+
+      {/* Share notification */}
+      {shareNotification && (
+        <div role="status" aria-live="polite" className="fixed top-20 left-1/2 -translate-x-1/2 z-50 px-4 py-2 bg-success text-on-primary text-body-sm rounded-pill shadow-lg animate-fade-in">
+          Link copied!
         </div>
       )}
 
@@ -915,16 +962,51 @@ export default function TodoApp({ initialListId, sharedList, templateTodos, temp
             <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] text-mute opacity-60 font-mono pointer-events-none hidden sm:block">Enter</span>
           </div>
           <div className="flex gap-2 flex-wrap sm:flex-nowrap">
-            <select
-              value={selectedCategory || ''}
-              onChange={(e) => setSelectedCategory(e.target.value || null)}
-              className="h-9 px-2 bg-canvas-soft border border-hairline rounded-md text-caption text-ink focus:outline-none focus:border-link cursor-pointer"
-            >
-              <option value="">All</option>
-              {categories.map(cat => (
-                <option key={cat.id} value={cat.id}>{cat.name}</option>
-              ))}
-            </select>
+            {/* Colorful category dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setAddTaskCategoryOpen(!addTaskCategoryOpen)}
+                className="h-9 px-3 bg-canvas-soft border border-hairline rounded-md text-caption text-ink focus:outline-none focus:border-link cursor-pointer flex items-center gap-2 hover:bg-canvas-soft-2 transition-colors active:scale-[0.97] transition-transform duration-150 ease-out"
+              >
+                {/* Default to 'work' category when none selected */}
+                {(() => {
+                  const displayCategory = selectedCategory || 'work';
+                  const cat = categories.find(c => c.id === displayCategory);
+                  return (
+                    <>
+                      <span
+                        className="w-3 h-3 rounded-full flex-shrink-0 ring-1 ring-black/10"
+                        style={{ backgroundColor: cat?.color || '#0070f3' }}
+                      />
+                      <span>{cat?.name || 'Work'}</span>
+                    </>
+                  );
+                })()}
+                <svg className="w-3.5 h-3.5 text-mute" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {addTaskCategoryOpen && (
+                <>
+                  <div className="fixed inset-0 z-40" onClick={() => setAddTaskCategoryOpen(false)} />
+                  <div className="absolute top-full left-0 mt-1 z-50 bg-canvas border border-hairline rounded-lg shadow-lg py-1 min-w-[140px] animate-fade-in-fast">
+                    {categories.map(cat => (
+                      <button
+                        key={cat.id}
+                        onClick={() => {
+                          setSelectedCategory(cat.id);
+                          setAddTaskCategoryOpen(false);
+                        }}
+                        className={`w-full px-3 py-1.5 text-left text-caption hover:bg-canvas-soft transition-colors flex items-center gap-2 active:scale-[0.97] transition-transform duration-150 ease-out ${selectedCategory === cat.id ? 'bg-primary/10' : ''}`}
+                      >
+                        <span className="w-3 h-3 rounded-full ring-1 ring-black/10 flex-shrink-0" style={{ backgroundColor: cat.color }} />
+                        <span className={selectedCategory === cat.id ? 'text-primary font-medium' : ''}>{cat.name}</span>
+                      </button>
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
             <div className="relative">
               <button
                 type="button"
@@ -1026,8 +1108,13 @@ export default function TodoApp({ initialListId, sharedList, templateTodos, temp
           >
           All ({totalTodos})
         </button>
-        {categories.map(cat => {
-          const count = todos.filter(t => t.category === cat.id).length;
+        {categories
+          .map(cat => ({
+            ...cat,
+            count: todos.filter(t => t.category === cat.id).length
+          }))
+          .sort((a, b) => b.count - a.count)
+          .map(cat => {
           const isEditing = editingCategoryId === cat.id;
           const isSelected = selectedCategory === cat.id;
 
@@ -1066,7 +1153,7 @@ export default function TodoApp({ initialListId, sharedList, templateTodos, temp
               ) : (
                 <span className="max-w-[80px] sm:max-w-[100px] truncate">{cat.name}</span>
               )}
-              <span className="opacity-70 shrink-0">({count})</span>
+              <span className="opacity-70 shrink-0">({cat.count})</span>
             </button>
           );
         })}
@@ -1243,25 +1330,6 @@ export default function TodoApp({ initialListId, sharedList, templateTodos, temp
                       <>
                         <div className="fixed inset-0 z-[60]" onClick={() => setOpenCategoryMenuId(null)} />
                         <div className="absolute top-full left-0 mt-1 z-[70] bg-canvas border border-hairline rounded-lg shadow-lg py-1 min-w-[140px]" role="listbox">
-                          {/* None option */}
-                          <button
-                            role="option"
-                            aria-selected={todo.category === 'work' || !todo.category}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              updateTodo(todo.id, { category: 'work' });
-                              setOpenCategoryMenuId(null);
-                            }}
-                            className={`w-full px-3 py-1.5 text-left text-caption hover:bg-canvas-soft transition-colors flex items-center gap-2 ${todo.category === 'work' ? 'bg-primary/10' : ''}`}
-                          >
-                            <span className="w-2 h-2 rounded-full border border-hairline shrink-0" />
-                            <span className="text-mute">None</span>
-                            {todo.category === 'work' && (
-                              <svg className="w-3 h-3 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                              </svg>
-                            )}
-                          </button>
                           {categories.map(cat => (
                             <button
                               role="option"
